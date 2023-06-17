@@ -59,9 +59,7 @@ cada quién trabajará en una rama personal o, de funcionalidad
 (feature) que luego, se integrará a la rama develop. Previo a la
 entrega, hacer merge a la rama main o master y generar el
 release.
-Fuente:
-https://www.atlassian.com/es/git/tutorials/comparing-workflows/gi
-tflow-workflow
+
 Nota. Todo cambio que no esté integrado a la rama main o
 máster no será evaluado dado que se considera “entregable” la
 rama main. Todo integrante del equipo debe evidenciar
