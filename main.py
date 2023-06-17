@@ -79,7 +79,6 @@ def consultar_clave(p_clave):
 def menu_principal():
     pass
 
-
 # Proceso principal
 def __main__():
     pass
