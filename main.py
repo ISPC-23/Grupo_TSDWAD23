@@ -37,6 +37,30 @@ class Normativa:
     # Eliminar una Normativa
     def eliminar(self):
         pass
+##############################################
+class Conexionbd:
+    # Constructor del objeto Conexionbd
+    def __init__(self):        
+        self.host="localhost" 
+        self.user="root", 
+        self.password="fernando",
+        self.database="bdnormativa"
+    def conectarbd(self):
+        import mysql.connector
+        miConexion=mysql.connector.connect(host="localhost", 
+                                  user="root", 
+                                  password="fernando",
+                                  database="bdnormativa")
+        if miConexion.is_connected:
+           micursor = miConexion.cursor()
+#           print ('conexion ok')
+           #return micursor
+           return miConexion         
+        else:
+            print ('error de conexion a la base de datos')
+    def cerrarconectarbd(self,miConexion ):        
+        miConexion.close()
+#        print ('conexion cerrada')
 
 
 # Consultar todas las Normativas
@@ -59,3 +83,4 @@ def menu_principal():
 # Proceso principal
 def __main__():
     pass
+
