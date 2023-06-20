@@ -1,3 +1,38 @@
+#Menu_Principal
+
+def menu_principal():
+    continuar = True
+    while(continuar):
+        opcioncorrecta=False
+        while(not opcioncorrecta):
+            print("=============== MENU PRINCIPAL ================")
+            print("1-> Consultar Normativa por numero")
+            print("2-> Consultar Normativa por palabra clave")
+            print("3-> Agregar Normativa")
+            print("4-> Eliminar Normativa")
+            print("5-> Modifical Normativa")
+            print("6-> Salir")
+            print("===============================================")
+            opcion = int(input("Seleccione una opcion: "))
+
+
+            if opcion < 1 or opcion > 6 : 
+                print (" Opcion incorrecta, ingrese nuevamente... ")
+            elif opcion == 6 :
+                continuar = False
+                print ("¡Gracias por elegir nuestro sistema!")
+                break
+            else:
+                opcioncorrecta = True
+                ejecutarOpcion(opcion)
+
+def ejecutarOpcion (opcion):
+    print(opcion)
+
+menu_principal()
+
+
+
 # Clase Palabras_claves
 
 class Palabras_claves:
@@ -37,6 +72,30 @@ class Normativa:
     # Eliminar una Normativa
     def eliminar(self):
         pass
+##############################################
+class Conexionbd:
+    # Constructor del objeto Conexionbd
+    def __init__(self):        
+        self.host="localhost" 
+        self.user="root", 
+        self.password="fernando",
+        self.database="bdnormativa"
+    def conectarbd(self):
+        import mysql.connector
+        miConexion=mysql.connector.connect(host="localhost", 
+                                  user="root", 
+                                  password="fernando",
+                                  database="bdnormativa")
+        if miConexion.is_connected:
+           micursor = miConexion.cursor()
+#           print ('conexion ok')
+           #return micursor
+           return miConexion         
+        else:
+            print ('error de conexion a la base de datos')
+    def cerrarconectarbd(self,miConexion ):        
+        miConexion.close()
+#        print ('conexion cerrada')
 
 
 # Consultar todas las Normativas
@@ -51,10 +110,9 @@ def consultar_num(numero):
 def consultar_clave(p_clave):
     pass
 
-# Menu principal
-def menu_principal():
-    pass
-
+# Menu principal   >>>>>>>>>>>>> lo realice en la parte de arriba del codigo
+# def menu_principal():
+ #   pass
 
 # Proceso principal
 def __main__():
