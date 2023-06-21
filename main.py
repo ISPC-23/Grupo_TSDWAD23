@@ -69,8 +69,7 @@ def consultar():
 
 # Consultar Normativa por numero
 def consultar_num(numero):
-    pass
-
+ 
 # Consultar Normativa por palabra clave
 def consultar_clave(p_clave):
     pass
