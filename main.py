@@ -1,23 +1,48 @@
-import mysql.connector
+#Menu_Principal
 
-# Clase Palabra_clave
-class Palabra_clave:
-    '''Palabra_clave esta formado por:
-    palabra: string
-    normativas: [int]
-    '''
-    # Constructor del objeto Palabra_clave
-    def __init__(self, palabra):
-        self.palabra = palabra
-        self.normativas = []
+def menu_principal():
+    continuar = True
+    while(continuar):
+        opcioncorrecta=False
+        while(not opcioncorrecta):
+            print("=============== MENU PRINCIPAL ================")
+            print("1-> Consultar Normativa por numero")
+            print("2-> Consultar Normativa por palabra clave")
+            print("3-> Agregar Normativa")
+            print("4-> Eliminar Normativa")
+            print("5-> Modifical Normativa")
+            print("6-> Salir")
+            print("===============================================")
+            opcion = int(input("Seleccione una opcion: "))
 
-    # Modificar una palabra
-    def modificar_palabra(self, nueva_palabra):
-        self.palabra = nueva_palabra
-    
-    # Agregar una Normativa a la palabra
-    def agregar_normativa(self, normativa):
-        self.normativas.append(normativa)
+
+            if opcion < 1 or opcion > 6 : 
+                print (" Opcion incorrecta, ingrese nuevamente... ")
+            elif opcion == 6 :
+                continuar = False
+                print ("¡Gracias por elegir nuestro sistema!")
+                break
+            else:
+                opcioncorrecta = True
+                ejecutarOpcion(opcion)
+
+def ejecutarOpcion (opcion):
+    print(opcion)
+
+menu_principal()
+
+
+
+# Clase Palabras_claves
+
+class Palabras_claves:
+    # Constructor del objeto Palabras_claves
+    def __init__(self):
+        pass
+
+    # Insertar una nueva palabra
+    def insertar_palabra(self, palabra):
+        pass
 
 
 # Clase Normativa
@@ -103,48 +128,9 @@ def consultar_num(numero):
 def consultar_clave(p_clave):
     pass
 
-# Menu principal
-def menu_principal():
-    continuar = True
-    while(continuar):
-        opcioncorrecta=False
-        while(not opcioncorrecta):
-            print("=============== MENU PRINCIPAL ================")
-            print("1-> Consultar Normativa por su numero")
-            print("2-> Consultar Normativa por palabra clave")
-            print("3-> Agregar Normativa")
-            print("4-> Eliminar Normativa")
-            print("5-> Modifical Normativa")
-            print("6-> Salir")
-            print("===============================================")
-            opcion = int(input("Seleccione una opcion:  "))
-
-
-            if opcion < 1 or opcion > 6 : 
-                print (" Opcion incorrecta, ingrese nuevamente... ")
-            elif opcion == 6:
-                continuar = False
-                print ("¡ Gracias por elegir nuestro sistema !")
-                break
-            else:
-                opcioncorrecta = True
-                ejecutarOpcion(opcion)
-
-def ejecutarOpcion (opcion):
-    Conexionbd = Conexionbd()
-
-    if opcion ==1:
-        print ("El numero de la normativa es: ")
-    elif opcion == 2:
-        print ("La palabra clave es: ")
-    elif opcion == 3:
-        print ("La normativa a agregar es: ")
-    elif opcion == 4:
-        print("Eliminar normativa: ")
-    elif opcion == 5:
-        print("Modificar normativa: ")
-
-menu_principal()
+# Menu principal   >>>>>>>>>>>>> lo realice en la parte de arriba del codigo
+# def menu_principal():
+ #   pass
 
 # Proceso principal
 def __main__():
