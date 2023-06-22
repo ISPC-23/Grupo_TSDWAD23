@@ -127,29 +127,18 @@ def conectarbd(self):
                                   password="1234568",
                                   database="bdnormativa")
 class Modificador:
-    def __init__(self):
-        self.conn = Conexionbd()
+    def __init__(self, user, password):
+        self.conn = Conexionbd(user, password)
         self.conexion = self.conn.conectarbd()
         self.micursor = self.conexion.cursor()
 
-def modificar(self, tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo):
-    consulta = "UPDATE nombre_tabla SET campo1 = ?, campo2 = ?, campo3 = ?, campo4 = ?, campo5 = ?, campo6 = ? WHERE id = ?"
-    valores = (tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo)
-Self.conexion.commit()
-print("Valor modificado correctamente.")
-modificador = Modificador()
-tipo = 'Nuevo tipo'
-numero = 1
-fecha = '2023-06-21'
-descripcion = 'Nueva descripción'
-categoria = 'Nueva categoría'
-jurisdiccion = 'Nueva jurisdicción'
-organo = 'Nuevo órgano'
-modificador.modificar(tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo)
-conn = Conexionbd()
-conexion = conn.conectarbd()
-micursor = conexion.cursor()
-micursor.execute("INSERT INTO categoria (descripcion) VALUES ('Salud')")
-conexion.commit ()
-micursor.close()
-conn.cerrarconectarbd (conexion)
+    def modificar(self, tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo):
+        consulta = "UPDATE bdnormativa SET campo1 = %s, campo2 = %s, campo3 = %s, campo4 = %s, campo5 = %s, campo6 = %s WHERE id = %s"
+        valores = (tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo)
+        self.micursor.execute(consulta, valores)
+        self.conexion.commit()
+        print("Valor modificado correctamente.")
+        def cerrarconectarbd(self,miConexion ):
+            miConexion.close()
+
+
