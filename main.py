@@ -114,7 +114,7 @@ def menu_principal():
             print("2-> Consultar Normativa por palabra clave")
             print("3-> Agregar Normativa")
             print("4-> Eliminar Normativa")
-            print("5-> Modifical Normativa")
+            print("5-> Modificar Normativa")
             print("6-> Salir")
             print("===============================================")
             opcion = int(input("Seleccione una opcion:  "))
@@ -131,26 +131,26 @@ def menu_principal():
                 ejecutarOpcion(opcion)
 
 def ejecutarOpcion (opcion):
+    
 
     if opcion ==1:
-        
-        print ("El numero de la normativa es: ")
+
+    #agregar la funcion 
     
     elif opcion == 2:
-        
-        print ("La palabra clave es: ")
-    
+
+        #La palabra clave es:
     elif opcion == 3:
-        
-        print ("La normativa a agregar es: ")
-        
+        #print ("La normativa a agregar es: ")
+        #insertar_normativa(usuario,password)
+    
     elif opcion == 4:
-        
-        print("Eliminar normativa: ")
-        
+
+        #"Eliminar normativa: "
+
     elif opcion == 5:
         
-        print("Modificar normativa: ")
+        #("Modificar normativa: ")
 
 menu_principal()
 ################################################# FINAL DEL MENU ######################################################
