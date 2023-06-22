@@ -1,4 +1,6 @@
 import mysql.connector
+global usuario
+global password
 # Clase Normativa
 class Normativa:
     '''Normativa esta formado por:
@@ -82,17 +84,10 @@ def consultar_num(numero):
 def consultar_clave(p_clave):
     pass
 
-# Menu principal
-def menu_principal():
-    pass
-
-# Proceso principal
-def __main__():
-    pass
 
 
+################################################# INICIO DE AGREGAR NORMATIVA #########################################
 def insertar_normativa(usuario,password):
-###############################
     # Código para buscar los tipos de normativas en la BD
     # Creo el Objeto Conexion
     conn = Conexionbd(usuario, password)
@@ -239,17 +234,70 @@ Por favor agregue la palabra: ''')
         else:
             ciclo = False    
     print ('''
-Usted ha agregado una nueva normativa con éxito.''') 
+Usted ha agregado una nueva normativa con éxito.
+''') 
 # crea un objeto de la Clase normativa y mustra sus datos. Se comenta el código por que no funciona
 #    print ('''
 #La nueva normativa agragada es: ''')
 #    nueva_normativa = Normativa (n_normativa_tipo, normativa_numero, normativa_fecha, normativa_descripcion, n_normativa_categoria, n_normativa_jurisdiccion, n_normativa_organo) #, conjunto_palabras 
 #    print (nueva_normativa)
-    
+################################################# FIN DE AGREGAR NORMATIVA #########################################    
 
  
-usuario = input ('Ingrese usuario de Base de Datos: ')
-password = input ("Ingrese la contraseña: ")
+#usuario = input ('Ingrese usuario de Base de Datos: ')
+#password = input ("Ingrese la contraseña: ")
 
-insertar_normativa(usuario, password)
+# Proceso principal
+def __main__():
+    menu_principal()
 
+# Menu principal
+#################################################### Menu principal ##############################################
+def menu_principal():
+    usuario = input ('Ingrese usuario de Base de Datos: ')
+    password = input ("Ingrese la contraseña: ")
+
+    continuar = True
+    while(continuar):
+        opcioncorrecta=False
+        while(not opcioncorrecta):
+            print("=============== MENU PRINCIPAL ================")
+            print("1-> Consultar Normativa por su numero")
+            print("2-> Consultar Normativa por palabra clave")
+            print("3-> Agregar Normativa")
+            print("4-> Eliminar Normativa")
+            print("5-> Modificar Normativa")
+            print("6-> Salir")
+            print("===============================================")
+            opcion = int(input("Seleccione una opcion:  "))
+
+            if opcion < 1 or opcion > 6 : 
+                print (" Opcion incorrecta, ingrese nuevamente... ")
+            elif opcion == 6:
+                continuar = False
+                print ("¡ Gracias por elegir nuestro sistema !")
+                break
+            else:
+                opcioncorrecta = True
+                ejecutarOpcion(opcion,usuario, password)
+
+def ejecutarOpcion (opcion,usuario, password):
+    if opcion ==1:
+        pass
+    #agregar la funcion 
+    elif opcion == 2:
+        pass
+        #La palabra clave es:
+    elif opcion == 3:        
+        insertar_normativa(usuario, password)
+        pass
+    elif opcion == 4:
+         pass
+        #"Eliminar normativa: "
+
+    elif opcion == 5:
+        pass
+        #("Modificar normativa: ")
+
+menu_principal()
+################################################# FINAL DEL MENU ######################################################
