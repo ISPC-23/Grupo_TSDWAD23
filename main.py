@@ -131,17 +131,25 @@ def menu_principal():
                 ejecutarOpcion(opcion)
 
 def ejecutarOpcion (opcion):
-    Conexionbd = Conexionbd()
 
     if opcion ==1:
+        
         print ("El numero de la normativa es: ")
+    
     elif opcion == 2:
+        
         print ("La palabra clave es: ")
+    
     elif opcion == 3:
+        
         print ("La normativa a agregar es: ")
+        
     elif opcion == 4:
+        
         print("Eliminar normativa: ")
+        
     elif opcion == 5:
+        
         print("Modificar normativa: ")
 
 menu_principal()
