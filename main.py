@@ -103,7 +103,7 @@ def consultar_num(numero):
 def consultar_clave(p_clave):
     pass
 
-# Menu principal
+#################################################### Menu principal ##############################################
 def menu_principal():
     continuar = True
     while(continuar):
@@ -153,7 +153,7 @@ def ejecutarOpcion (opcion):
         print("Modificar normativa: ")
 
 menu_principal()
-
+################################################# FINAL DEL MENU ######################################################
 # Proceso principal
 def __main__():
     pass
