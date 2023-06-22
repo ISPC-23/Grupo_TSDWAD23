@@ -1,3 +1,5 @@
+from msilib.schema import SelfReg
+from typing import Self
 import mysql.connector
 
 # Clase Palabra_clave
@@ -111,3 +113,43 @@ def menu_principal():
 def __main__():
     pass
 
+#Modificar
+
+def __init__(self, user, password):        
+        self.host="localhost" 
+        self.user=user, 
+        self.password=password,
+        self.database="bdnormativa"
+def conectarbd(self):
+        #import mysql.connector
+        miConexion=mysql.connector.connect(host="localhost", 
+                                  user="root", 
+                                  password="1234568",
+                                  database="bdnormativa")
+class Modificador:
+    def __init__(self):
+        self.conn = Conexionbd()
+        self.conexion = self.conn.conectarbd()
+        self.micursor = self.conexion.cursor()
+
+def modificar(self, tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo):
+    consulta = "UPDATE nombre_tabla SET campo1 = ?, campo2 = ?, campo3 = ?, campo4 = ?, campo5 = ?, campo6 = ? WHERE id = ?"
+    valores = (tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo)
+Self.conexion.commit()
+print("Valor modificado correctamente.")
+modificador = Modificador()
+tipo = 'Nuevo tipo'
+numero = 1
+fecha = '2023-06-21'
+descripcion = 'Nueva descripción'
+categoria = 'Nueva categoría'
+jurisdiccion = 'Nueva jurisdicción'
+organo = 'Nuevo órgano'
+modificador.modificar(tipo, numero, fecha, descripcion, categoria, jurisdiccion, organo)
+conn = Conexionbd()
+conexion = conn.conectarbd()
+micursor = conexion.cursor()
+micursor.execute("INSERT INTO categoria (descripcion) VALUES ('Salud')")
+conexion.commit ()
+micursor.close()
+conn.cerrarconectarbd (conexion)
