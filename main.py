@@ -103,6 +103,36 @@ def consultar_num(numero):
 def consultar_clave(p_clave):
     pass
 
+
+def eliminar_normativa(user, password):
+    miConexion=mysql.connector.connect(host="localhost", 
+                                  user="root", 
+                                  password="root",
+                                  database="bdnormativa")
+    micursor = miConexion.cursor()
+    conn = Conexionbd(user, password)
+    conexion = conn.conectarbd()
+    micursor.execute("SELECT numero FROM normativa")
+    lista_normativas_numeros=micursor.fetchall()
+    respUser = input("¿Que normavita desea eliminar(numero normativa)?")
+    #verificamos si la respuesta del usuario se encuentra en la bdd
+    if ((respUser,) in lista_normativas_numeros):
+        micursor.execute("SELECT id_normativa FROM normativa WHERE numero = "+respUser)
+        variable=micursor.fetchone()
+        #print(variable[0])
+        micursor.execute("DELETE FROM palabra_clave WHERE id_normativa = "+str(variable[0]))
+        micursor.execute("DELETE FROM normativa WHERE numero =" + respUser)
+        print("Se elimino con exito")
+    else:
+        print("error no se encuentra la normativa")
+
+
+    conexion.commit()
+    conn.cerrarconectarbd (conexion)
+    micursor.close()
+    pass
+
+
 # Menu principal
 def menu_principal():
     pass
