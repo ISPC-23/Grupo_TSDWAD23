@@ -239,8 +239,8 @@ Usted ha agregado una nueva normativa con éxito.
 ''') 
 
 # Proceso principal
-def __main__():
-    menu_principal()
+#def __main__():
+#    menu_principal()
 
 # Menu principal
 #################################################### Menu principal ##############################################
