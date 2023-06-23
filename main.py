@@ -87,6 +87,7 @@ def consultar_clave(p_clave):
 
 
 
+
 ################################################# INICIO DE AGREGAR NORMATIVA #########################################
 def insertar_normativa(usuario,password):
     # Código para buscar los tipos de normativas en la BD
@@ -239,7 +240,7 @@ Usted ha agregado una nueva normativa con éxito.
 ''') 
 
 ############################################################### Menu principal ###################################################
-def menu_principal():
+def menu_principal(BD_USUARIO,BD_PASSWORD):
     continuar = True
     while(continuar):
         opcioncorrecta=False
@@ -263,41 +264,72 @@ def menu_principal():
                 break
             else:
                 opcioncorrecta = True
-                ejecutarOpcion(opcion)
+                ejecutarOpcion(opcion,BD_USUARIO, BD_PASSWORD)
 
-def ejecutarOpcion (opcion):
+def ejecutarOpcion (opcion,BD_USUARIO, BD_PASSWORD):
     
 
     if opcion ==1:
-
+       pass
     #agregar la funcion 
     
     elif opcion == 2:
-
+        pass
         #La palabra clave es:
     elif opcion == 3:
         #print ("La normativa a agregar es: ")
-        #insertar_normativa(usuario,password)
-    
+        insertar_normativa(BD_USUARIO, BD_PASSWORD)
+        pass
     elif opcion == 4:
-
+        eliminar_normativa(BD_USUARIO, BD_PASSWORD)
         #"Eliminar normativa: "
 
     elif opcion == 5:
-        
+        pass
         #("Modificar normativa: ")
-
-menu_principal()
 
  ######################################################## FIN MENU PRINCIPAL #########################################################
 # Proceso principal
-def __main__():
-    menu_principal()
-
-# Menu principal
-#################################################### Menu principal ##############################################
-def menu_principal():
-    BD_USUARIO = input ('Ingrese usuario de Base de Datos: ')
-    BD_PASSWORD = input ("Ingrese la contraseña: ")
 
 
+
+def eliminar_normativa(user, password):
+#    miConexion=mysql.connector.connect(host="localhost", 
+#                                  user=user, 
+#                                  password=password,
+#                                  database="bdnormativa")
+#    micursor = miConexion.cursor()
+    conn = Conexionbd(user, password)
+    conexion = conn.conectarbd()
+    micursor = conexion.cursor()
+    micursor.execute("SELECT numero FROM normativa")
+    lista_normativas_numeros=micursor.fetchall()
+    respUser = input("¿Que normavita desea eliminar(numero normativa)?")
+    #verificamos si la respuesta del usuario se encuentra en la bdd
+    if ((respUser,) in lista_normativas_numeros):
+        micursor.execute("SELECT id_normativa FROM normativa WHERE numero = "+respUser)
+        variable=micursor.fetchone()
+        #print(variable[0])
+        
+        respuesta = input("¿Esta seguro que desea borrar la normativa N°" + respUser + " (Si/No).\n")
+        
+        if respuesta.lower() == "no":
+            print("Eliminación cancelada.")
+            exit() 
+        else:
+            print("Eliminando...")
+            micursor.execute("DELETE FROM palabra_clave WHERE id_normativa = "+str(variable[0]))
+            micursor.execute("DELETE FROM normativa WHERE numero =" + respUser)
+            print("Se eliminó con exito.")
+            conexion.commit()        
+    else:
+        print("error no se encuentra la normativa")
+
+    
+    conn.cerrarconectarbd (conexion)
+    micursor.close()
+
+
+BD_USUARIO = input ('Ingrese usuario de Base de Datos: ')
+BD_PASSWORD = input ("Ingrese la contraseña: ")
+menu_principal (BD_USUARIO,BD_PASSWORD)
