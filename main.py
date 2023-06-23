@@ -46,13 +46,13 @@ class Normativa:
 
     # Muestra en formato texto del objeto
     def __str__(self):
-        print(f"Normativa\n {self.tipo} N° {self.numero}")
-        print(f"Jurisdicción {self.jurisdiccion}")
-        print(f"Organo legislativo: {self.organo}")
-        print(f"Fecha: {self.fecha}")
-        print(f"Categoría: {self.categoria}")
-        print(f"Palabras claves: {self.p_claves}")
-        print(f"{self.descripcion}")
+        return f"Normativa\n{self.tipo} N° {self.numero}\n\
+Jurisdicción {self.jurisdiccion}\n\
+Organo legislativo: {self.organo}\n\
+Fecha: {self.fecha}\n\
+Categoría: {self.categoria}\n\
+Palabras claves: {self.p_claves}\n\
+{self.descripcion}"
 
     # Modificar una Normativa
     def modificar(self):
@@ -70,15 +70,15 @@ class Conexionbd:
     # Constructor del objeto Conexionbd
     def __init__(self, user, password):        
         self.host="localhost" 
-        self.user=user, 
-        self.password=password,
+        self.user=user
+        self.password=password
         self.database="bdnormativa"
     def conectarbd(self):
         #import mysql.connector
-        miConexion=mysql.connector.connect(host="localhost", 
-                                  user="root", 
-                                  password="fernando",
-                                  database="bdnormativa")
+        miConexion=mysql.connector.connect(host=self.host, 
+                                  user=self.user, 
+                                  password=self.password,
+                                  database=self.database)
         if miConexion.is_connected:
            #micursor = miConexion.cursor()
 #           print ('conexion ok')
@@ -93,7 +93,34 @@ class Conexionbd:
 
 # Consultar todas las Normativas
 def consultar():
-    pass
+    normativas = []
+    myBD = Conexionbd("ispc","Ispc*2023")
+    bdConectada = myBD.conectarbd()
+    bdCursor = bdConectada.cursor()
+    sql = "SELECT TP.descripcion, N.numero, N.fecha, N.descripcion, C.descripcion,\
+            J.descripcion, OL.descripcoin\
+        FROM normativa AS N, tipo_normativa AS TP, categoria AS C, jurisdiccion AS J,\
+            organo_legislativo AS OL\
+        WHERE N.id_tipo_normativa = TP.id_tipo_normativa AND\
+            N.id_categoria = C.id_categoria AND\
+            N.id_jurisdiccion = J.id_jurisdiccion AND\
+            N.id_organo_legislativo = OL.id_organo_legislativo"
+    bdCursor.execute(sql)
+    registros = bdCursor.fetchall()
+    for registro in registros:
+        nueva_norm = Normativa(
+            registro[0],
+            registro[1],
+            registro[2],
+            registro[3],
+            registro[4],
+            registro[5],
+            registro[6]
+        )
+        normativas.append(nueva_norm)
+    bdCursor.close()
+    myBD.cerrarconectarbd(bdConectada)
+    return normativas
 
 # Consultar Normativa por numero
 def consultar_num(numero):
@@ -101,13 +128,39 @@ def consultar_num(numero):
 
 # Consultar Normativa por palabra clave
 def consultar_clave(p_clave):
-    pass
+    normativas = []
+    myBD = Conexionbd("ispc","Ispc*2023")
+    bdConectada = myBD.conectarbd()
+    bdCursor = bdConectada.cursor()
+    bdCursor.execute("SELECT * FROM palabra_clave where descripcion=%s",(p_clave,))
+    registros = bdCursor.fetchall()
+    sql = "SELECT TP.descripcion, N.numero, N.fecha, N.descripcion, C.descripcion,\
+            J.descripcion, OL.descripcoin\
+        FROM normativa AS N, tipo_normativa AS TP, categoria AS C, jurisdiccion AS J,\
+            organo_legislativo AS OL\
+        WHERE N.id_tipo_normativa = TP.id_tipo_normativa AND\
+            N.id_categoria = C.id_categoria AND\
+            N.id_jurisdiccion = J.id_jurisdiccion AND\
+            N.id_organo_legislativo = OL.id_organo_legislativo AND\
+            id_normativa=%s"
+    for registro in registros:
+        #print(f"{registro[0]} - {registro[1]}: {registro[2]}")
+        bdCursor.execute(sql, (registro[1],))
+        registro_norm = bdCursor.fetchone()
+        nueva_norm = Normativa(
+            registro_norm[0],
+            registro_norm[1],
+            registro_norm[2],
+            registro_norm[3],
+            registro_norm[4],
+            registro_norm[5],
+            registro_norm[6]
+        )
+        normativas.append(nueva_norm)
+    bdCursor.close()
+    myBD.cerrarconectarbd(bdConectada)
+    return normativas
 
 # Menu principal
 def menu_principal():
     pass
-
-# Proceso principal
-def __main__():
-    pass
-
