@@ -179,3 +179,7 @@ class Modificador:
 def cerrarconectarbd(self):
             self.conn.cerrarconectarbd()
 
+
+
+
+
