@@ -72,16 +72,9 @@ class Conexionbd :
 #        print ('conexion cerrada')
 
 
-# Consultar Normativa por numero
-
-    
-
 # Consultar Normativa por palabra clave
 def consultar_clave(p_clave):
     pass
-
-
-
 
 
 ################################################# INICIO DE AGREGAR NORMATIVA #########################################
@@ -108,7 +101,7 @@ Tipo de normativas''')
     # Verifico si la opción elegida es válida    
     bandera = True
     while bandera == True:
-        normativa_tipo = int (input ('Ingrese el tipos de normativa: '))
+        normativa_tipo = int (input ('Ingrese el tipo de normativa: '))
         j=0
         for i in lista_resultado:
             if normativa_tipo == (lista_resultado[j][0]):
@@ -234,8 +227,9 @@ Por favor agregue la palabra: ''')
     print ('''
 Usted ha agregado una nueva normativa con éxito.
 ''') 
+################################################# FIN DE AGREGAR NORMATIVA ####################################
 
-############################################################### Menu principal ###################################################
+###################################################### MENU PRICIPAL ##########################################
 def menu_principal(BD_USUARIO,BD_PASSWORD):
     continuar = True
     while(continuar):
@@ -282,11 +276,9 @@ def ejecutarOpcion (opcion,BD_USUARIO, BD_PASSWORD):
         pass
         #("Modificar normativa: ")
 
- ######################################################## FIN MENU PRINCIPAL #########################################################
-# Proceso principal
+################################################# FIN MENU PRINCIPAL ##########################################
 
-
-
+################################################# INICIO DE ELIMINAR ##########################################
 def eliminar_normativa(user, password):
 #    miConexion=mysql.connector.connect(host="localhost", 
 #                                  user=user, 
@@ -322,6 +314,7 @@ def eliminar_normativa(user, password):
     
     conn.cerrarconectarbd (conexion)
     micursor.close()
+############################################## FIN DE ELIMINAR ###############################################
 
 ####################################### INICIO DE CONSULTAR POR NUMERO #######################################
 def consultar_num(BD_USUARIO,BD_PASSWORD):
@@ -355,6 +348,11 @@ def consultar_num(BD_USUARIO,BD_PASSWORD):
     conn.cerrarconectarbd (conexion)
 ####################################### FIN DE CONSULTAR POR NUMERO #######################################
 
+####################################### INICIO DE MAIN ####################################################
 BD_USUARIO = input ('Ingrese usuario de Base de Datos: ')
 BD_PASSWORD = input ("Ingrese la contraseña: ")
 menu_principal (BD_USUARIO,BD_PASSWORD)
+
+####################################### FIN DE MAIN #######################################################
+
+
