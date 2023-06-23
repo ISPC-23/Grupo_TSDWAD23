@@ -91,13 +91,9 @@ class Conexionbd:
 #        print ('conexion cerrada')
 
 
-# Consultar todas las Normativas
-def consultar():
-    pass
-
 # Consultar Normativa por numero
-def consultar_num(numero):
-    pass
+
+    
 
 # Consultar Normativa por palabra clave
 def consultar_clave(p_clave):
