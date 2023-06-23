@@ -1,25 +1,6 @@
 import mysql.connector
-
-# Clase Palabra_clave
-class Palabra_clave:
-    '''Palabra_clave esta formado por:
-    palabra: string
-    normativas: [int]
-    '''
-    # Constructor del objeto Palabra_clave
-    def __init__(self, palabra):
-        self.palabra = palabra
-        self.normativas = []
-
-    # Modificar una palabra
-    def modificar_palabra(self, nueva_palabra):
-        self.palabra = nueva_palabra
-    
-    # Agregar una Normativa a la palabra
-    def agregar_normativa(self, normativa):
-        self.normativas.append(normativa)
-
-
+BD_USUARIO =""
+BD_PASSWORD =""
 # Clase Normativa
 class Normativa:
     '''Normativa esta formado por:
@@ -60,7 +41,7 @@ class Normativa:
 
 
 # Clase Conexionbd
-class Conexionbd:
+class Conexionbd :
     '''Conexionbd esta formado por:
     host: string
     user: string
@@ -70,14 +51,14 @@ class Conexionbd:
     # Constructor del objeto Conexionbd
     def __init__(self, user, password):        
         self.host="localhost" 
-        self.user=user, 
-        self.password=password,
+        self.user= user
+        self.password=password
         self.database="bdnormativa"
     def conectarbd(self):
         #import mysql.connector
         miConexion=mysql.connector.connect(host="localhost", 
-                                  user="root", 
-                                  password="fernando",
+                                  user= self.user, 
+                                  password=self.password,
                                   database="bdnormativa")
         if miConexion.is_connected:
            #micursor = miConexion.cursor()
@@ -99,8 +80,163 @@ class Conexionbd:
 def consultar_clave(p_clave):
     pass
 
+
+
+
+
+################################################# INICIO DE AGREGAR NORMATIVA #########################################
+def insertar_normativa(usuario,password):
+    # Código para buscar los tipos de normativas en la BD
+    # Creo el Objeto Conexion
+    conn = Conexionbd(usuario, password)
+    # Abro la conexion instanciando el metodo conectarbd
+    conexion = conn.conectarbd()
+    # Decalro y asigno el cursor de la conexion a la BD
+    micursor = conexion.cursor()
+    # Ejecuto la SQL para bucar tipos de normativas
+    micursor.execute("SELECT * FROM tipo_normativa")
+    # con el metodo fetchall() asigna una tupla a la variable lista_resultado
+    lista_resultado=micursor.fetchall()
+    y=0
+    x=0
+    # Recorro y muestro la lista
+    print ('''
+Tipo de normativas''')
+    for i in lista_resultado:
+        print(lista_resultado[y][0],lista_resultado[y][1])
+        y+=1
+    # Verifico si la opción elegida es válida    
+    bandera = True
+    while bandera == True:
+        normativa_tipo = int (input ('Ingrese el tipos de normativa: '))
+        j=0
+        for i in lista_resultado:
+            if normativa_tipo == (lista_resultado[j][0]):
+                bandera= False
+                n_normativa_tipo = (lista_resultado[j][1])
+            j+=1        
+        if bandera == True:
+            print ('Error: número incorrecto') 
+    
+    # Cierro el cursor
+    micursor.close()    
+
+    normativa_numero = input ('''
+Ingrese el número de normativa: ''')
+    normativa_fecha = input ('''
+Ingrese la fecha de sanción (aaaa/mm/dd): ''')
+    normativa_descripcion = input ('''
+Ingrese la descripción (max 300 caracteres): ''')
+
+   # Código para buscar las categorías en la BD
+    micursor = conexion.cursor()
+    micursor.execute("SELECT * FROM categoria")
+    lista_resultado=micursor.fetchall()
+    y=0
+    x=0
+    print ('''
+Categorías''')
+    for i in lista_resultado:
+        print(lista_resultado[y][0],lista_resultado[y][1])
+        y+=1
+    # Verifico si la opción elegida es válida
+    bandera = True
+    while bandera == True:    
+        normativa_categoria = int (input ('Seleccione la Categoría de la normativa: '))
+        j=0
+        for i in lista_resultado:
+            if normativa_categoria == (lista_resultado[j][0]):
+                bandera= False
+                n_normativa_categoria = (lista_resultado[j][1])
+            j+=1        
+        if bandera == True:
+            print ('Error: número incorrecto') 
+    micursor.close()
+
+    # Código para buscar las Jurisdicciones en la BD
+    micursor = conexion.cursor()
+    micursor.execute("SELECT * FROM jurisdiccion")
+    lista_resultado=micursor.fetchall()
+    y=0
+    x=0
+    print ('''
+Jurisdicciones''')
+    for i in lista_resultado:
+        print(lista_resultado[y][0],lista_resultado[y][1])
+        y+=1
+    # Verifico si la opción elegida es válida
+    bandera = True
+    while bandera == True:
+        normativa_jurisdiccion = int (input ('Seleccione la Jurisdicción: '))
+        j=0
+        for i in lista_resultado:
+            if normativa_jurisdiccion == (lista_resultado[j][0]):
+                bandera= False
+                n_normativa_jurisdiccion = (lista_resultado[j][1])
+            j+=1        
+        if bandera == True:
+            print ('Error: número incorrecto')    
+    micursor.close()
+
+    # Código para buscar las Organo Legislativo en la BD
+    micursor = conexion.cursor()
+    micursor.execute("SELECT * FROM organo_legislativo")
+    lista_resultado=micursor.fetchall()
+    y=0
+    x=0
+    print ('''
+Órganos Legislativos''')
+    for i in lista_resultado:
+        print(lista_resultado[y][0],lista_resultado[y][1])
+        y+=1
+    # Verifico si la opción elegida es válida    
+    bandera = True
+    while bandera == True:    
+        normativa_organo = int (input ('Seleccione Órgano Legislativo: '))
+        j=0
+        for i in lista_resultado:
+            if normativa_organo == (lista_resultado[j][0]):
+                bandera= False
+                n_normativa_organo = (lista_resultado[j][1])
+            j+=1        
+        if bandera == True:
+            print ('Error: número incorrecto')
+    micursor.close()
+    
+    # Decalro y asigno el cursor de la conexion a la BD
+    micursor = conexion.cursor()
+    # Ejecuto la SQL
+    sql = "INSERT INTO normativa (id_tipo_normativa, numero,fecha, descripcion, id_categoria, id_jurisdiccion, id_organo_legislativo) VALUES (%s, %s, %s, %s, %s ,%s,%s)"
+    var = (normativa_tipo ,normativa_numero,normativa_fecha,normativa_descripcion, normativa_categoria, normativa_jurisdiccion, normativa_organo)
+    micursor.execute(sql,var)
+    conexion.commit ()
+    # Cierro el cursor
+    id_new_normativa = micursor.lastrowid
+    micursor.close()
+    conjunto_palabras = []
+    ciclo = True
+    while ciclo == True :
+        sn =input ('''
+Desea agregar una palabra clave asociada a la normativa S/N: ''')
+        if sn.upper() == 'S':
+            palabra_clave = input('''
+Por favor agregue la palabra: ''')
+            micursor = conexion.cursor()
+            # Ejecuto la SQL        
+            sql = "INSERT INTO palabra_clave (id_normativa, descripcion) VALUES (%s, %s)"
+            var = (id_new_normativa ,palabra_clave)
+            micursor.execute(sql,var)
+            conexion.commit () 
+            micursor.close()
+            conjunto_palabras.append (palabra_clave)            
+        else:
+            ciclo = False    
+    print ('''
+Usted ha agregado una nueva normativa con éxito.
+''') 
+
 ############################################################### Menu principal ###################################################
-def menu_principal():
+def menu_principal(BD_USUARIO,BD_PASSWORD):
     continuar = True
     while(continuar):
         opcioncorrecta=False
@@ -124,34 +260,72 @@ def menu_principal():
                 break
             else:
                 opcioncorrecta = True
-                ejecutarOpcion(opcion)
+                ejecutarOpcion(opcion,BD_USUARIO, BD_PASSWORD)
 
-def ejecutarOpcion (opcion):
+def ejecutarOpcion (opcion,BD_USUARIO, BD_PASSWORD):
     
 
     if opcion ==1:
-
+       pass
     #agregar la funcion 
     
     elif opcion == 2:
-
+        pass
         #La palabra clave es:
     elif opcion == 3:
         #print ("La normativa a agregar es: ")
-        #insertar_normativa(usuario,password)
-    
+        insertar_normativa(BD_USUARIO, BD_PASSWORD)
+        pass
     elif opcion == 4:
-
+        eliminar_normativa(BD_USUARIO, BD_PASSWORD)
         #"Eliminar normativa: "
 
     elif opcion == 5:
-        
+        pass
         #("Modificar normativa: ")
-
-menu_principal()
 
  ######################################################## FIN MENU PRINCIPAL #########################################################
 # Proceso principal
-def __main__():
-    pass
 
+
+
+def eliminar_normativa(user, password):
+#    miConexion=mysql.connector.connect(host="localhost", 
+#                                  user=user, 
+#                                  password=password,
+#                                  database="bdnormativa")
+#    micursor = miConexion.cursor()
+    conn = Conexionbd(user, password)
+    conexion = conn.conectarbd()
+    micursor = conexion.cursor()
+    micursor.execute("SELECT numero FROM normativa")
+    lista_normativas_numeros=micursor.fetchall()
+    respUser = input("¿Que normavita desea eliminar(numero normativa)?")
+    #verificamos si la respuesta del usuario se encuentra en la bdd
+    if ((respUser,) in lista_normativas_numeros):
+        micursor.execute("SELECT id_normativa FROM normativa WHERE numero = "+respUser)
+        variable=micursor.fetchone()
+        #print(variable[0])
+        
+        respuesta = input("¿Esta seguro que desea borrar la normativa N°" + respUser + " (Si/No).\n")
+        
+        if respuesta.lower() == "no":
+            print("Eliminación cancelada.")
+            exit() 
+        else:
+            print("Eliminando...")
+            micursor.execute("DELETE FROM palabra_clave WHERE id_normativa = "+str(variable[0]))
+            micursor.execute("DELETE FROM normativa WHERE numero =" + respUser)
+            print("Se eliminó con exito.")
+            conexion.commit()        
+    else:
+        print("error no se encuentra la normativa")
+
+    
+    conn.cerrarconectarbd (conexion)
+    micursor.close()
+
+
+BD_USUARIO = input ('Ingrese usuario de Base de Datos: ')
+BD_PASSWORD = input ("Ingrese la contraseña: ")
+menu_principal (BD_USUARIO,BD_PASSWORD)
