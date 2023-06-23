@@ -41,7 +41,7 @@ class Normativa:
 
 
 # Clase Conexionbd
-class Conexionbd:
+class Conexionbd :
     '''Conexionbd esta formado por:
     host: string
     user: string
@@ -299,4 +299,5 @@ def __main__():
 def menu_principal():
     BD_USUARIO = input ('Ingrese usuario de Base de Datos: ')
     BD_PASSWORD = input ("Ingrese la contraseña: ")
+
 
