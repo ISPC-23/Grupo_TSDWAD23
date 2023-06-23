@@ -263,12 +263,10 @@ def menu_principal(BD_USUARIO,BD_PASSWORD):
                 ejecutarOpcion(opcion,BD_USUARIO, BD_PASSWORD)
 
 def ejecutarOpcion (opcion,BD_USUARIO, BD_PASSWORD):
-    git 
-
-    if opcion ==1:
-       pass
-    #agregar la funcion 
     
+    if opcion ==1:       
+    #agregar la funcion 
+       consultar_num(BD_USUARIO,BD_PASSWORD)
     elif opcion == 2:
         pass
         #La palabra clave es:
