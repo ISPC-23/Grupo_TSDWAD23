@@ -103,58 +103,10 @@ def consultar_num(numero):
 def consultar_clave(p_clave):
     pass
 
-############################################################### Menu principal ###################################################
+# Menu principal
 def menu_principal():
-    continuar = True
-    while(continuar):
-        opcioncorrecta=False
-        while(not opcioncorrecta):
-            print("=============== MENU PRINCIPAL ================")
-            print("1-> Consultar Normativa por su numero")
-            print("2-> Consultar Normativa por palabra clave")
-            print("3-> Agregar Normativa")
-            print("4-> Eliminar Normativa")
-            print("5-> Modificar Normativa")
-            print("6-> Salir")
-            print("===============================================")
-            opcion = int(input("Seleccione una opcion:  "))
+    pass
 
-
-            if opcion < 1 or opcion > 6 : 
-                print (" Opcion incorrecta, ingrese nuevamente... ")
-            elif opcion == 6:
-                continuar = False
-                print ("¡ Gracias por elegir nuestro sistema !")
-                break
-            else:
-                opcioncorrecta = True
-                ejecutarOpcion(opcion)
-
-def ejecutarOpcion (opcion):
-    
-
-    if opcion ==1:
-
-    #agregar la funcion 
-    
-    elif opcion == 2:
-
-        #La palabra clave es:
-    elif opcion == 3:
-        #print ("La normativa a agregar es: ")
-        #insertar_normativa(usuario,password)
-    
-    elif opcion == 4:
-
-        #"Eliminar normativa: "
-
-    elif opcion == 5:
-        
-        #("Modificar normativa: ")
-
-menu_principal()
-
- ######################################################## FIN MENU PRINCIPAL #########################################################
 # Proceso principal
 def __main__():
     pass
