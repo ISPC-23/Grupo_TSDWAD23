@@ -329,6 +329,40 @@ def eliminar_normativa(user, password):
     conn.cerrarconectarbd (conexion)
     micursor.close()
 
+def consultar():
+    normativas = []
+    myBD = Conexionbd("ispc","Ispc*2023")
+    bdConectada = myBD.conectarbd()
+    bdCursor = bdConectada.cursor()
+    sql = "SELECT TP.descripcion, N.numero, N.fecha, N.descripcion, C.descripcion,\
+            J.descripcion, OL.descripcoin\
+        FROM normativa AS N, tipo_normativa AS TP, categoria AS C, jurisdiccion AS J,\
+            organo_legislativo AS OL\
+        WHERE N.id_tipo_normativa = TP.id_tipo_normativa AND\
+            N.id_categoria = C.id_categoria AND\
+            N.id_jurisdiccion = J.id_jurisdiccion AND\
+            N.id_organo_legislativo = OL.id_organo_legislativo"
+    bdCursor.execute(sql)
+    registros = bdCursor.fetchall()
+    for registro in registros:
+        nueva_norm = Normativa(
+            registro[0],
+            registro[1],
+            registro[2],
+            registro[3],
+            registro[4],
+            registro[5],
+            registro[6]
+        )
+        normativas.append(nueva_norm)
+    bdCursor.close()
+    myBD.cerrarconectarbd(bdConectada)
+    return normativas
+
+# Consultar Normativa por numero
+def consultar_num(numero):
+    pass
+
 
 BD_USUARIO = input ('Ingrese usuario de Base de Datos: ')
 BD_PASSWORD = input ("Ingrese la contraseña: ")
